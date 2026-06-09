@@ -2,6 +2,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const { spawnSync } = require("node:child_process");
 const request = require("supertest");
 const createApp = require("../src/app");
 
@@ -118,6 +119,40 @@ test("GET /api/invalid-page-id rejects page id mismatch", async () => {
   } finally {
     await fs.rm(filePath, { force: true });
   }
+});
+
+test("GET /api/draft-page hides draft pages by default", async () => {
+  const filePath = path.join(cardsDirectory, "draft-page.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithPage({ id: "draft-page", status: "draft", version: 1 })));
+
+  try {
+    const response = await request(app).get("/api/draft-page").expect(404);
+    assert.equal(response.body.error.code, "card_not_found");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
+test("official DivKit schema validator rejects invalid cards when configured", () => {
+  const script = `
+    const { validateDivKitSchema } = require("./src/validators/divkit-schema.validator");
+    try {
+      validateDivKitSchema({ card: { log_id: "broken", states: [] } }, "broken");
+      process.exit(1);
+    } catch (error) {
+      if (error.code !== "invalid_divkit_schema") {
+        console.error(error.code);
+        process.exit(2);
+      }
+    }
+  `;
+  const result = spawnSync(process.execPath, ["-e", script], {
+    cwd: path.join(__dirname, ".."),
+    env: { ...process.env, DIVKIT_SCHEMA_DIR: "./schema/divkit" },
+    encoding: "utf8",
+  });
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
 });
 
 function makeCardWithCustomAction(payload) {

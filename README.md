@@ -80,9 +80,20 @@ npm test
 PORT=3000
 NODE_ENV=development
 CARDS_DIRECTORY=./cards
+DIVKIT_SCHEMA_DIR=
+ALLOW_DRAFT_PAGES=false
 ```
 
 `CARDS_DIRECTORY` is resolved from the `Server` directory. Keep the `Service -> Repository` contract stable when replacing local JSON files with a database, CMS, or remote renderer.
+
+Download the official DivKit schema when you want strict schema validation:
+
+```bash
+npm run schema:download
+DIVKIT_SCHEMA_DIR=./schema/divkit npm test
+```
+
+`Server/schema/` is generated and ignored by git.
 
 ## Page Metadata
 
@@ -102,6 +113,12 @@ Every card can include a `page` object used by native clients and server validat
 ```
 
 The server also returns `X-SDUI-Page-Id`, `X-SDUI-Page-Version`, and `X-SDUI-Published-At` headers when metadata is present.
+
+`status` controls publication:
+
+- `published`: visible
+- `draft`: hidden unless `ALLOW_DRAFT_PAGES=true`
+- `archived`: hidden
 
 ## Run iOS App
 

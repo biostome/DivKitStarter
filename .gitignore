@@ -2,4 +2,7 @@
 DerivedData/
 server/node_modules/
 server/.env
+Server/node_modules/
+Server/.env
+Server/schema/
 *.xcuserstate
