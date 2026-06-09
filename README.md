@@ -130,10 +130,27 @@ xcodebuild \
   build
 ```
 
+Run iOS unit tests:
+
+```bash
+xcodebuild \
+  -project UIKitIntegration/DivKitStarter.xcodeproj \
+  -scheme DivKitStarter \
+  -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.5' \
+  test
+```
+
+iOS API environments are defined in:
+
+```text
+UIKitIntegration/Config/Debug.xcconfig
+UIKitIntegration/Config/Release.xcconfig
+```
+
 The default API base URL is configured in:
 
 ```text
-UIKitIntegration/DivKitStarter/Info.plist
+UIKitIntegration/Config/Debug.xcconfig
 ```
 
 Key:
