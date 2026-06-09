@@ -156,6 +156,7 @@ final class DivHostViewController: UIViewController {
     return DivKitComponents(
       divCustomBlockFactory: customBlockFactory,
       extensionHandlers: extensionHandlers,
+      reporter: SDUIReporter(),
       urlHandler: urlHandler
     )
   }

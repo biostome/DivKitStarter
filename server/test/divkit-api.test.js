@@ -54,6 +54,18 @@ test("GET /api/invalid-action rejects unsupported SDUI action", async () => {
   }
 });
 
+test("GET /api/invalid-typed-action rejects invalid typed open path", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-typed-action.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithTypedAction("sdui.open", "../bad")));
+
+  try {
+    const response = await request(app).get("/api/invalid-typed-action").expect(500);
+    assert.equal(response.body.error.code, "invalid_sdui_action");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
 function makeCardWithAction(url) {
   return {
     card: {
@@ -68,6 +80,32 @@ function makeCardWithAction(url) {
               {
                 log_id: "invalid",
                 url,
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+}
+
+function makeCardWithTypedAction(type, path) {
+  return {
+    card: {
+      log_id: "invalid-typed-action",
+      states: [
+        {
+          state_id: 0,
+          div: {
+            type: "text",
+            text: "Invalid typed action",
+            actions: [
+              {
+                log_id: "invalid_typed",
+                typed: {
+                  type,
+                  path,
+                },
               },
             ],
           },

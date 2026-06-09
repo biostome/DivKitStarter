@@ -13,6 +13,7 @@ function validateSDUIActions(payload, pageName) {
       if (typeof action.url === "string" && action.url.startsWith("sdui://")) {
         validateSDUIActionURL(action.url, pageName);
       }
+      validateTypedAction(action, pageName);
     }
   });
 }
@@ -33,6 +34,24 @@ function validateSDUIActionURL(rawURL, pageName) {
     const path = url.searchParams.get("path") || url.pathname.replace(/^\/+/, "");
     if (!pageNamePattern.test(path)) {
       throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid open path`);
+    }
+  }
+}
+
+function validateTypedAction(action, pageName) {
+  const type = action.typed?.type || action.type;
+  if (!type || !String(type).startsWith("sdui.")) {
+    return;
+  }
+
+  if (!["sdui.toast", "sdui.open", "sdui.back"].includes(type)) {
+    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains unsupported typed action "${type}"`);
+  }
+
+  if (type === "sdui.open") {
+    const path = action.typed?.path || action.path;
+    if (!pageNamePattern.test(path || "")) {
+      throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid typed open path`);
     }
   }
 }
