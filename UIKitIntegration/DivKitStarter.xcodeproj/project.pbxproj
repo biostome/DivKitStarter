@@ -27,19 +27,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		435101E42C517C1F000EF4E6 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Sample.json; sourceTree = "<group>"; };
-		435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleDivCustomBlockFactory.swift; sourceTree = "<group>"; };
-		4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivKitNetworkClient.swift; sourceTree = "<group>"; };
-		4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
-		4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIActionHandler.swift; sourceTree = "<group>"; };
-		4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivKitResponseCache.swift; sourceTree = "<group>"; };
-		4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
-		4374FB522C51CD8F00C66A5C /* SDUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIAction.swift; sourceTree = "<group>"; };
-		4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIReporter.swift; sourceTree = "<group>"; };
+		435101E42C517C1F000EF4E6 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Resources/Sample.json; sourceTree = "<group>"; };
+		435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions/SampleDivCustomBlockFactory.swift; sourceTree = "<group>"; };
+		4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppConfiguration.swift; sourceTree = "<group>"; };
+		4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Network/DivKitNetworkClient.swift; sourceTree = "<group>"; };
+		4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/UI/LoadingStateView.swift; sourceTree = "<group>"; };
+		4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIActionHandler.swift; sourceTree = "<group>"; };
+		4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Cache/DivKitResponseCache.swift; sourceTree = "<group>"; };
+		4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/UI/ToastPresenter.swift; sourceTree = "<group>"; };
+		4374FB522C51CD8F00C66A5C /* SDUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIAction.swift; sourceTree = "<group>"; };
+		4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIReporter.swift; sourceTree = "<group>"; };
 		8C705EF4258A3FDE00468EB6 /* DivKitStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivKitStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivHostViewController.swift; sourceTree = "<group>"; };
+		8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
+		8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/DivHostViewController.swift; sourceTree = "<group>"; };
 		8C705EFE258A3FDE00468EB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C705F00258A3FE000468EB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C705F03258A3FE000468EB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
