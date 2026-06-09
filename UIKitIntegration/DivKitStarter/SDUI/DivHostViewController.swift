@@ -222,6 +222,11 @@ final class DivHostViewController: UIViewController {
         if let title = metadata.title {
             self.title = title
         }
+        if let version = metadata.version {
+            #if DEBUG
+            print("[SDUIPage] id=\(metadata.id ?? configuration.cardId.rawValue) version=\(version) status=\(metadata.status ?? "unknown")")
+            #endif
+        }
         isRefreshEnabled = metadata.refreshable
         refreshControl.isEnabled = metadata.refreshable
     }

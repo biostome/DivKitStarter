@@ -21,7 +21,10 @@ test("GET /api/ returns home DivKit card", async () => {
 
   assert.equal(response.body.card.log_id, "home");
   assert.equal(response.body.page.id, "home");
+  assert.equal(response.body.page.version, 1);
   assert.equal(response.body.page.refreshable, true);
+  assert.equal(response.headers["x-sdui-page-id"], "home");
+  assert.equal(response.headers["x-sdui-page-version"], "1");
   assert.ok(Array.isArray(response.body.card.states));
   assert.ok(response.body.card.states[0].div);
 });
@@ -93,6 +96,30 @@ test("GET /api/invalid-modal-action rejects invalid modal path", async () => {
   }
 });
 
+test("GET /api/invalid-page-version rejects invalid page version", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-page-version.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithPage({ id: "invalid-page-version", version: "1" })));
+
+  try {
+    const response = await request(app).get("/api/invalid-page-version").expect(500);
+    assert.equal(response.body.error.code, "invalid_page_payload");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
+test("GET /api/invalid-page-id rejects page id mismatch", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-page-id.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithPage({ id: "other", version: 1 })));
+
+  try {
+    const response = await request(app).get("/api/invalid-page-id").expect(500);
+    assert.equal(response.body.error.code, "invalid_page_payload");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
 function makeCardWithCustomAction(payload) {
   return {
     card: {
@@ -112,6 +139,24 @@ function makeCardWithCustomAction(payload) {
                 payload,
               },
             ],
+          },
+        },
+      ],
+    },
+  };
+}
+
+function makeCardWithPage(page) {
+  return {
+    page,
+    card: {
+      log_id: page.id || "invalid-page",
+      states: [
+        {
+          state_id: 0,
+          div: {
+            type: "text",
+            text: "Invalid page",
           },
         },
       ],

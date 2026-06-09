@@ -74,6 +74,35 @@ npm run check
 npm test
 ```
 
+## Server Environment
+
+```bash
+PORT=3000
+NODE_ENV=development
+CARDS_DIRECTORY=./cards
+```
+
+`CARDS_DIRECTORY` is resolved from the `Server` directory. Keep the `Service -> Repository` contract stable when replacing local JSON files with a database, CMS, or remote renderer.
+
+## Page Metadata
+
+Every card can include a `page` object used by native clients and server validation:
+
+```json
+{
+  "id": "home",
+  "title": "首页",
+  "version": 1,
+  "publishedAt": "2026-06-09T00:00:00.000Z",
+  "status": "published",
+  "refreshable": true,
+  "minClientVersion": 1,
+  "requiredCapabilities": ["toast", "open", "back"]
+}
+```
+
+The server also returns `X-SDUI-Page-Id`, `X-SDUI-Page-Version`, and `X-SDUI-Published-At` headers when metadata is present.
+
 ## Run iOS App
 
 ```bash

@@ -2,6 +2,9 @@
   "page": {
     "id": "dialog",
     "title": "弹窗",
+    "version": 1,
+    "publishedAt": "2026-06-09T00:00:00.000Z",
+    "status": "published",
     "refreshable": false,
     "minClientVersion": 1,
     "requiredCapabilities": [

@@ -11,6 +11,9 @@ final class SDUIActionHandler: DivCustomActionHandling, DivUrlHandler {
 
   func handle(payload: DivDictionary, context _: DivActionHandlingContext, sender _: AnyObject?) {
     guard let action = SDUIAction(payload: payload), let hostViewController else {
+      #if DEBUG
+      print("[SDUIAction] Unsupported custom action payload: \(payload)")
+      #endif
       return
     }
 

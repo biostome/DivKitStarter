@@ -25,6 +25,9 @@ struct SDUIPageResponse {
 struct SDUIPageMetadata {
   let id: String?
   let title: String?
+  let version: Int?
+  let publishedAt: String?
+  let status: String?
   let refreshable: Bool
   let minClientVersion: Int
   let requiredCapabilities: [String]
@@ -32,6 +35,9 @@ struct SDUIPageMetadata {
   init(object: [String: Any]) {
     id = object["id"] as? String
     title = object["title"] as? String
+    version = object["version"] as? Int
+    publishedAt = object["publishedAt"] as? String
+    status = object["status"] as? String
     refreshable = object["refreshable"] as? Bool ?? true
     minClientVersion = object["minClientVersion"] as? Int ?? 1
     requiredCapabilities = object["requiredCapabilities"] as? [String] ?? []
