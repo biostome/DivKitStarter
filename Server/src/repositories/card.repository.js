@@ -20,9 +20,10 @@ async function readCardJson(pageName) {
 
 function resolveCardPath(pageName) {
   const cardsDirectory = path.resolve(config.cardsDirectory);
+  const cardsDirectoryWithSep = `${cardsDirectory}${path.sep}`;
   const filePath = path.resolve(cardsDirectory, `${pageName}.json`);
 
-  if (path.dirname(filePath) !== cardsDirectory) {
+  if (!filePath.startsWith(cardsDirectoryWithSep)) {
     throw httpError(400, "invalid_page_name", "Page path is outside cards directory");
   }
   return filePath;
