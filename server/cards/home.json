@@ -72,7 +72,13 @@
               "actions": [
                 {
                   "log_id": "toast",
-                  "url": "sdui://toast?text=Hello%20DivKit"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "toast",
+                    "text": "Hello DivKit"
+                  }
                 }
               ]
             },
@@ -102,7 +108,14 @@
               "actions": [
                 {
                   "log_id": "open_detail",
-                  "url": "sdui://open?path=detail&title=详情"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "open",
+                    "path": "detail",
+                    "title": "详情"
+                  }
                 }
               ]
             },
@@ -132,7 +145,15 @@
               "actions": [
                 {
                   "log_id": "open_modal",
-                  "url": "sdui://modal?path=dialog&title=弹窗&style=sheet"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "modal",
+                    "path": "dialog",
+                    "title": "弹窗",
+                    "style": "sheet"
+                  }
                 }
               ]
             },
@@ -162,15 +183,34 @@
               "actions": [
                 {
                   "log_id": "native_alert",
-                  "url": "sdui://alert?title=提示&message=这是原生弹窗"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "alert",
+                    "title": "提示",
+                    "message": "这是原生弹窗"
+                  }
                 },
                 {
                   "log_id": "copy_text",
-                  "url": "sdui://copy?text=Copied%20from%20DivKit"
+                  "typed": {
+                    "type": "copy_to_clipboard",
+                    "content": {
+                      "type": "text",
+                      "value": "Copied from DivKit"
+                    }
+                  }
                 },
                 {
                   "log_id": "track_event",
-                  "url": "sdui://track?name=home_more_native"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "track",
+                    "name": "home_more_native"
+                  }
                 }
               ]
             }

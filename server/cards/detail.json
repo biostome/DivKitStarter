@@ -55,7 +55,12 @@
               "actions": [
                 {
                   "log_id": "back",
-                  "url": "sdui://back"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "back"
+                  }
                 }
               ]
             }

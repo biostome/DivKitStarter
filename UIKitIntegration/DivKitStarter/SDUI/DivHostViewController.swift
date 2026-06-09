@@ -231,6 +231,7 @@ final class DivHostViewController: UIViewController {
         let customBlockFactory = SampleDivCustomBlockFactory()
         let urlHandler = SDUIActionHandler(hostViewController: self)
         return DivKitComponents(
+            customActionHandler: urlHandler,
             divCustomBlockFactory: customBlockFactory,
             extensionHandlers: extensionHandlers,
             reporter: SDUIReporter(),

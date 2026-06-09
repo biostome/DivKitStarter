@@ -56,7 +56,12 @@
               "actions": [
                 {
                   "log_id": "close_modal",
-                  "url": "sdui://back"
+                  "typed": {
+                    "type": "custom"
+                  },
+                  "payload": {
+                    "action": "back"
+                  }
                 }
               ]
             }

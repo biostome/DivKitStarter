@@ -7,10 +7,9 @@ Production-oriented UIKit + DivKit starter for local SDUI development.
 - Native UIKit app with DivKit `32.53.0`
 - Local DivKit JSON loading from `http://localhost:3000/api/`
 - Loading state, network error state, retry, pull to refresh
-- SDUI actions:
-  - `sdui://toast?text=Hello`
-  - `sdui://open?path=detail&title=Detail`
-  - `sdui://back`
+- Official DivKit actions:
+  - built-in typed actions, for example `copy_to_clipboard`
+  - native app actions through official `typed: { "type": "custom" }` + `payload`
 - Lightweight Node/Express local server
 - Structured server layers: routes, controllers, services, repositories, validators, middlewares
 - Server tests for health, card loading, missing cards, and invalid page names
@@ -103,24 +102,45 @@ For a physical iPhone, replace `localhost` with the Mac local network IP, for ex
 http://192.168.1.10:3000/api/
 ```
 
-## SDUI Action Protocol
+## DivKit Action Protocol
 
 Show toast:
 
-```text
-sdui://toast?text=Hello%20DivKit
+```json
+{
+  "log_id": "toast",
+  "typed": { "type": "custom" },
+  "payload": {
+    "action": "toast",
+    "text": "Hello DivKit"
+  }
+}
 ```
 
 Open a page:
 
-```text
-sdui://open?path=detail&title=详情
+```json
+{
+  "log_id": "open_detail",
+  "typed": { "type": "custom" },
+  "payload": {
+    "action": "open",
+    "path": "detail",
+    "title": "详情"
+  }
+}
 ```
 
 Go back:
 
-```text
-sdui://back
+```json
+{
+  "log_id": "back",
+  "typed": { "type": "custom" },
+  "payload": {
+    "action": "back"
+  }
+}
 ```
 
 Page names only allow letters, numbers, hyphen, and underscore.

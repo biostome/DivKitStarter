@@ -45,9 +45,9 @@ test("GET /api/invalid.path rejects invalid page name", async () => {
   assert.equal(response.body.error.code, "invalid_page_name");
 });
 
-test("GET /api/invalid-action rejects unsupported SDUI action", async () => {
+test("GET /api/invalid-action rejects unsupported custom payload action", async () => {
   const filePath = path.join(cardsDirectory, "invalid-action.json");
-  await fs.writeFile(filePath, JSON.stringify(makeCardWithAction("sdui://open?path=../bad")));
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithCustomAction({ action: "unknown" })));
 
   try {
     const response = await request(app).get("/api/invalid-action").expect(500);
@@ -59,7 +59,7 @@ test("GET /api/invalid-action rejects unsupported SDUI action", async () => {
 
 test("GET /api/invalid-typed-action rejects invalid typed open path", async () => {
   const filePath = path.join(cardsDirectory, "invalid-typed-action.json");
-  await fs.writeFile(filePath, JSON.stringify(makeCardWithTypedAction("sdui.open", "../bad")));
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithCustomAction({ action: "open", path: "../bad" })));
 
   try {
     const response = await request(app).get("/api/invalid-typed-action").expect(500);
@@ -71,7 +71,7 @@ test("GET /api/invalid-typed-action rejects invalid typed open path", async () =
 
 test("GET /api/invalid-web-action rejects non-http URL", async () => {
   const filePath = path.join(cardsDirectory, "invalid-web-action.json");
-  await fs.writeFile(filePath, JSON.stringify(makeCardWithAction("sdui://web?url=javascript:alert(1)")));
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithCustomAction({ action: "web", url: "javascript:alert(1)" })));
 
   try {
     const response = await request(app).get("/api/invalid-web-action").expect(500);
@@ -83,7 +83,7 @@ test("GET /api/invalid-web-action rejects non-http URL", async () => {
 
 test("GET /api/invalid-modal-action rejects invalid modal path", async () => {
   const filePath = path.join(cardsDirectory, "invalid-modal-action.json");
-  await fs.writeFile(filePath, JSON.stringify(makeCardWithTypedAction("sdui.modal", "../bad")));
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithCustomAction({ action: "modal", path: "../bad" })));
 
   try {
     const response = await request(app).get("/api/invalid-modal-action").expect(500);
@@ -93,7 +93,7 @@ test("GET /api/invalid-modal-action rejects invalid modal path", async () => {
   }
 });
 
-function makeCardWithAction(url) {
+function makeCardWithCustomAction(payload) {
   return {
     card: {
       log_id: "invalid-action",
@@ -106,33 +106,10 @@ function makeCardWithAction(url) {
             actions: [
               {
                 log_id: "invalid",
-                url,
-              },
-            ],
-          },
-        },
-      ],
-    },
-  };
-}
-
-function makeCardWithTypedAction(type, path) {
-  return {
-    card: {
-      log_id: "invalid-typed-action",
-      states: [
-        {
-          state_id: 0,
-          div: {
-            type: "text",
-            text: "Invalid typed action",
-            actions: [
-              {
-                log_id: "invalid_typed",
                 typed: {
-                  type,
-                  path,
+                  type: "custom",
                 },
+                payload,
               },
             ],
           },

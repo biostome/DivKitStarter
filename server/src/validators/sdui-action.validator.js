@@ -1,18 +1,43 @@
 const httpError = require("../utils/http-error");
 
-const allowedHosts = new Set(["toast", "open", "modal", "web", "reload", "alert", "copy", "share", "track", "back"]);
-const typedActions = new Set([
-  "sdui.toast",
-  "sdui.open",
-  "sdui.modal",
-  "sdui.web",
-  "sdui.reload",
-  "sdui.alert",
-  "sdui.copy",
-  "sdui.share",
-  "sdui.track",
-  "sdui.back",
+const officialTypedActions = new Set([
+  "animator_start",
+  "animator_stop",
+  "array_insert_value",
+  "array_remove_value",
+  "array_set_value",
+  "clear_focus",
+  "copy_to_clipboard",
+  "dict_set_value",
+  "download",
+  "focus_element",
+  "hide_tooltip",
+  "scroll_by",
+  "scroll_to",
+  "set_state",
+  "set_stored_value",
+  "set_variable",
+  "show_tooltip",
+  "submit",
+  "timer",
+  "update_structure",
+  "video",
+  "custom",
+  "set_cursor_position",
 ]);
+
+const nativeActions = new Set([
+  "toast",
+  "open",
+  "modal",
+  "web",
+  "reload",
+  "alert",
+  "share",
+  "track",
+  "back",
+]);
+
 const pageNamePattern = /^[a-zA-Z0-9_-]+$/;
 
 function validateSDUIActions(payload, pageName) {
@@ -22,62 +47,57 @@ function validateSDUIActions(payload, pageName) {
     }
 
     for (const action of node.actions) {
-      if (typeof action.url === "string" && action.url.startsWith("sdui://")) {
-        validateSDUIActionURL(action.url, pageName);
-      }
-      validateTypedAction(action, pageName);
+      validateOfficialAction(action, pageName);
     }
   });
 }
 
-function validateSDUIActionURL(rawURL, pageName) {
-  let url;
-  try {
-    url = new URL(rawURL);
-  } catch (error) {
-    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid action URL`);
-  }
-
-  if (!allowedHosts.has(url.host)) {
-    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains unsupported action "${url.host}"`);
-  }
-
-  if (url.host === "open" || url.host === "modal") {
-    const path = url.searchParams.get("path") || url.pathname.replace(/^\/+/, "");
-    if (!pageNamePattern.test(path)) {
-      throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid ${url.host} path`);
-    }
-  }
-
-  if (url.host === "web" || url.host === "share") {
-    const rawURL = url.searchParams.get("url");
-    if (rawURL) {
-      validateWebURL(rawURL, pageName);
-    }
-  }
-}
-
-function validateTypedAction(action, pageName) {
-  const type = action.typed?.type || action.type;
-  if (!type || !String(type).startsWith("sdui.")) {
+function validateOfficialAction(action, pageName) {
+  if (!action || typeof action !== "object") {
     return;
   }
 
-  if (!typedActions.has(type)) {
-    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains unsupported typed action "${type}"`);
+  if (action.url && typeof action.url !== "string") {
+    throw invalidAction(pageName, "action url must be a string");
   }
 
-  if (type === "sdui.open" || type === "sdui.modal") {
-    const path = action.typed?.path || action.path;
-    if (!pageNamePattern.test(path || "")) {
-      throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid typed path`);
+  if (action.url) {
+    validateWebURL(action.url, pageName);
+  }
+
+  if (!action.typed) {
+    return;
+  }
+
+  const type = action.typed.type;
+  if (!officialTypedActions.has(type)) {
+    throw invalidAction(pageName, `unsupported official typed action "${type}"`);
+  }
+
+  if (type === "custom") {
+    validateCustomPayload(action.payload, pageName);
+  }
+}
+
+function validateCustomPayload(payload, pageName) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw invalidAction(pageName, "custom action requires payload object");
+  }
+
+  const action = payload.action;
+  if (!nativeActions.has(action)) {
+    throw invalidAction(pageName, `unsupported custom payload action "${action}"`);
+  }
+
+  if (action === "open" || action === "modal") {
+    if (!pageNamePattern.test(payload.path || "")) {
+      throw invalidAction(pageName, `invalid ${action} path`);
     }
   }
 
-  if (type === "sdui.web" || type === "sdui.share") {
-    const rawURL = action.typed?.url || action.url;
-    if (rawURL) {
-      validateWebURL(rawURL, pageName);
+  if (action === "web" || action === "share") {
+    if (payload.url) {
+      validateWebURL(payload.url, pageName);
     }
   }
 }
@@ -87,12 +107,16 @@ function validateWebURL(rawURL, pageName) {
   try {
     parsedURL = new URL(rawURL);
   } catch (error) {
-    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" contains invalid URL`);
+    throw invalidAction(pageName, "invalid URL");
   }
 
   if (!["http:", "https:"].includes(parsedURL.protocol)) {
-    throw httpError(500, "invalid_sdui_action", `Card "${pageName}" URL must use http or https`);
+    throw invalidAction(pageName, "URL must use http or https");
   }
+}
+
+function invalidAction(pageName, message) {
+  return httpError(500, "invalid_sdui_action", `Card "${pageName}" contains ${message}`);
 }
 
 function visit(value, visitor) {

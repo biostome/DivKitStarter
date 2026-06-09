@@ -2,15 +2,15 @@ import DivKit
 import Foundation
 import UIKit
 
-final class SDUIActionHandler: DivUrlHandler {
+final class SDUIActionHandler: DivCustomActionHandling, DivUrlHandler {
   weak var hostViewController: DivHostViewController?
 
   init(hostViewController: DivHostViewController) {
     self.hostViewController = hostViewController
   }
 
-  func handle(_ url: URL, info _: DivActionInfo, sender _: AnyObject?) {
-    guard let action = SDUIAction(url: url), let hostViewController else {
+  func handle(payload: DivDictionary, context _: DivActionHandlingContext, sender _: AnyObject?) {
+    guard let action = SDUIAction(payload: payload), let hostViewController else {
       return
     }
 
@@ -36,5 +36,12 @@ final class SDUIActionHandler: DivUrlHandler {
     case .back:
       hostViewController.goBack()
     }
+  }
+
+  func handle(_ url: URL, info _: DivActionInfo, sender _: AnyObject?) {
+    guard ["http", "https"].contains(url.scheme?.lowercased()), let hostViewController else {
+      return
+    }
+    hostViewController.openWeb(url: url)
   }
 }
