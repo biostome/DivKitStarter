@@ -1,9 +1,12 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs/promises");
+const path = require("node:path");
 const request = require("supertest");
 const createApp = require("../src/app");
 
 const app = createApp();
+const cardsDirectory = path.join(__dirname, "..", "cards");
 
 test("GET /health returns service status", async () => {
   const response = await request(app).get("/health").expect(200);
@@ -38,3 +41,38 @@ test("GET /api/invalid.path rejects invalid page name", async () => {
 
   assert.equal(response.body.error.code, "invalid_page_name");
 });
+
+test("GET /api/invalid-action rejects unsupported SDUI action", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-action.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithAction("sdui://open?path=../bad")));
+
+  try {
+    const response = await request(app).get("/api/invalid-action").expect(500);
+    assert.equal(response.body.error.code, "invalid_sdui_action");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
+function makeCardWithAction(url) {
+  return {
+    card: {
+      log_id: "invalid-action",
+      states: [
+        {
+          state_id: 0,
+          div: {
+            type: "text",
+            text: "Invalid action",
+            actions: [
+              {
+                log_id: "invalid",
+                url,
+              },
+            ],
+          },
+        },
+      ],
+    },
+  };
+}

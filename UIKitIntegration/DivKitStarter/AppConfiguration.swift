@@ -2,6 +2,10 @@ import DivKit
 import Foundation
 
 struct AppConfiguration {
+  static var environmentName: String {
+    (Bundle.main.object(forInfoDictionaryKey: "API_ENV") as? String) ?? "local"
+  }
+
   static var apiBaseURL: URL {
     if
       let value = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,

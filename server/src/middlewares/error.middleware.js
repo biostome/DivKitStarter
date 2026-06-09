@@ -3,7 +3,7 @@ function errorMiddleware(error, req, res, next) {
   const code = error.code || "internal_error";
   const message = status >= 500 ? "Internal server error" : error.message;
 
-  if (status >= 500) {
+  if (status >= 500 && process.env.NODE_ENV !== "test") {
     console.error(error);
   }
 
