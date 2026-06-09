@@ -26,10 +26,31 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/cache@v5
+        with:
+          path: |
+            ~/.swiftpm
+            ~/Library/Caches/org.swift.swiftpm
+            ~/Library/Developer/Xcode/DerivedData/SourcePackages
+          key: ${{ runner.os }}-spm-${{ hashFiles('UIKitIntegration/DivKitStarter.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
       - name: Test iOS app
         run: |
+          set -o pipefail
+          mkdir -p artifacts
           xcodebuild \
             -project UIKitIntegration/DivKitStarter.xcodeproj \
             -scheme DivKitStarter \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            test
+            -resultBundlePath artifacts/DivKitStarterTests.xcresult \
+            test 2>&1 | tee artifacts/xcodebuild-ios-test.log
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: ios-test-results
+          path: |
+            artifacts/DivKitStarterTests.xcresult
+            artifacts/xcodebuild-ios-test.log
+          if-no-files-found: ignore
+          retention-days: 14

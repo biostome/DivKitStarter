@@ -1,5 +1,6 @@
 .DS_Store
 DerivedData/
+artifacts/
 server/node_modules/
 server/.env
 Server/node_modules/
