@@ -1,0 +1,59 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "dialog",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 20,
+            "right": 20,
+            "top": 32,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "这是 Modal 页面",
+              "font_size": 24,
+              "font_weight": "bold"
+            },
+            {
+              "type": "text",
+              "text": "关闭",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#EF4444"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 24
+              },
+              "actions": [
+                {
+                  "log_id": "close_modal",
+                  "url": "sdui://back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

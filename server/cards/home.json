@@ -90,6 +90,74 @@
                   "url": "sdui://open?path=detail&title=详情"
                 }
               ]
+            },
+            {
+              "type": "text",
+              "text": "弹出 Modal",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#7C3AED"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 12
+              },
+              "actions": [
+                {
+                  "log_id": "open_modal",
+                  "url": "sdui://modal?path=dialog&title=弹窗&style=sheet"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": "更多原生能力",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#0F766E"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 12
+              },
+              "actions": [
+                {
+                  "log_id": "native_alert",
+                  "url": "sdui://alert?title=提示&message=这是原生弹窗"
+                },
+                {
+                  "log_id": "copy_text",
+                  "url": "sdui://copy?text=Copied%20from%20DivKit"
+                },
+                {
+                  "log_id": "track_event",
+                  "url": "sdui://track?name=home_more_native"
+                }
+              ]
             }
           ]
         }

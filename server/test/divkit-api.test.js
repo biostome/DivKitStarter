@@ -66,6 +66,30 @@ test("GET /api/invalid-typed-action rejects invalid typed open path", async () =
   }
 });
 
+test("GET /api/invalid-web-action rejects non-http URL", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-web-action.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithAction("sdui://web?url=javascript:alert(1)")));
+
+  try {
+    const response = await request(app).get("/api/invalid-web-action").expect(500);
+    assert.equal(response.body.error.code, "invalid_sdui_action");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
+test("GET /api/invalid-modal-action rejects invalid modal path", async () => {
+  const filePath = path.join(cardsDirectory, "invalid-modal-action.json");
+  await fs.writeFile(filePath, JSON.stringify(makeCardWithTypedAction("sdui.modal", "../bad")));
+
+  try {
+    const response = await request(app).get("/api/invalid-modal-action").expect(500);
+    assert.equal(response.body.error.code, "invalid_sdui_action");
+  } finally {
+    await fs.rm(filePath, { force: true });
+  }
+});
+
 function makeCardWithAction(url) {
   return {
     card: {
