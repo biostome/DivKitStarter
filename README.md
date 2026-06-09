@@ -1,5 +1,8 @@
 # DivKitStarter
 
+[![CI](https://github.com/biostome/DivKitStarter/actions/workflows/ci.yml/badge.svg)](https://github.com/biostome/DivKitStarter/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/biostome/DivKitStarter/actions/workflows/codeql.yml/badge.svg)](https://github.com/biostome/DivKitStarter/actions/workflows/codeql.yml)
+
 Production-oriented UIKit + DivKit starter for local SDUI development.
 
 ## What Is Included
