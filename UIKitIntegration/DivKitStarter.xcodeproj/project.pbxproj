@@ -78,24 +78,88 @@
 		8C705EF6258A3FDE00468EB6 /* DivKitStarter */ = {
 			isa = PBXGroup;
 			children = (
-				8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */,
-				4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */,
-				8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */,
-				4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */,
-				4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */,
-				4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */,
-				435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */,
-				4374FB522C51CD8F00C66A5C /* SDUIAction.swift */,
-				4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */,
-				4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */,
-				4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */,
+				4374FB562C51CD8F00C66A5C /* App */,
+				4374FB572C51CD8F00C66A5C /* Core */,
+				4374FB5B2C51CD8F00C66A5C /* SDUI */,
+				4374FB5C2C51CD8F00C66A5C /* Extensions */,
+				4374FB5D2C51CD8F00C66A5C /* Resources */,
 				8C705F00258A3FE000468EB6 /* Assets.xcassets */,
 				8C705F02258A3FE000468EB6 /* LaunchScreen.storyboard */,
 				8C705EFD258A3FDE00468EB6 /* Main.storyboard */,
-				435101E42C517C1F000EF4E6 /* Sample.json */,
 				8C705F05258A3FE000468EB6 /* Info.plist */,
 			);
 			path = DivKitStarter;
+			sourceTree = "<group>";
+		};
+		4374FB562C51CD8F00C66A5C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */,
+				4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		4374FB572C51CD8F00C66A5C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4374FB582C51CD8F00C66A5C /* Cache */,
+				4374FB592C51CD8F00C66A5C /* Network */,
+				4374FB5A2C51CD8F00C66A5C /* UI */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		4374FB582C51CD8F00C66A5C /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
+		4374FB592C51CD8F00C66A5C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		4374FB5A2C51CD8F00C66A5C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */,
+				4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		4374FB5B2C51CD8F00C66A5C /* SDUI */ = {
+			isa = PBXGroup;
+			children = (
+				8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */,
+				4374FB522C51CD8F00C66A5C /* SDUIAction.swift */,
+				4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */,
+				4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */,
+			);
+			name = SDUI;
+			sourceTree = "<group>";
+		};
+		4374FB5C2C51CD8F00C66A5C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		4374FB5D2C51CD8F00C66A5C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				435101E42C517C1F000EF4E6 /* Sample.json */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
