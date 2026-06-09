@@ -3,7 +3,19 @@
 [![CI](https://github.com/biostome/DivKitStarter/actions/workflows/ci.yml/badge.svg)](https://github.com/biostome/DivKitStarter/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/biostome/DivKitStarter/actions/workflows/codeql.yml/badge.svg)](https://github.com/biostome/DivKitStarter/actions/workflows/codeql.yml)
 
-Production-oriented UIKit + DivKit starter for local SDUI development.
+DivKitStarter is a production-oriented UIKit + DivKit starter for building server-driven iOS interfaces with a lightweight local Node.js backend.
+
+The project gives you a working SDUI loop out of the box: edit DivKit JSON on the server, refresh the iOS app, validate page metadata and actions, and keep both sides covered by CI. It is meant to be small enough to understand quickly, but structured enough to evolve into a real backend-backed SDUI system.
+
+## Why This Exists
+
+Server-driven UI projects often get stuck between a quick demo and production architecture. This starter keeps the demo loop fast while adding the pieces that usually matter later:
+
+- A UIKit app that renders DivKit cards from an HTTP API
+- A local Express server with clear route, controller, service, repository, and validator layers
+- Page metadata for publishing, versioning, refresh behavior, and client capabilities
+- A custom action protocol for native navigation, modal flows, toast messages, and web links
+- Server tests, iOS unit tests, CodeQL scanning, Dependabot, and GitHub Actions CI
 
 ## What Is Included
 
@@ -16,6 +28,8 @@ Production-oriented UIKit + DivKit starter for local SDUI development.
 - Lightweight Node/Express local server
 - Structured server layers: routes, controllers, services, repositories, validators, middlewares
 - Server tests for health, card loading, missing cards, and invalid page names
+- iOS unit tests for action parsing, response metadata, and response cache behavior
+- GitHub Actions workflows for CI, CodeQL scanning, dependency maintenance, release creation, and iOS test diagnostics
 
 ## Project Structure
 
@@ -50,10 +64,34 @@ Server/
   test/
 ```
 
+## Quick Start
+
+Start the local server:
+
+```bash
+cd Server
+npm install
+npm run dev
+```
+
+Then build or run the iOS app from Xcode using:
+
+```text
+UIKitIntegration/DivKitStarter.xcodeproj
+```
+
+The app loads cards from:
+
+```text
+http://localhost:3000/api/
+```
+
+Edit JSON files in `Server/cards/`, then pull to refresh in the iOS app to reload the UI.
+
 ## Run Local Server
 
 ```bash
-cd /Users/han/Desktop/DivKitStarter/Server
+cd Server
 npm install
 npm run dev
 ```
@@ -65,8 +103,6 @@ GET http://localhost:3000/health
 GET http://localhost:3000/api/
 GET http://localhost:3000/api/detail
 ```
-
-Edit files in `Server/cards/`, then pull to refresh in the iOS app to reload JSON.
 
 ## Server Scripts
 
