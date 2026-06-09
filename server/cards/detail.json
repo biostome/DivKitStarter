@@ -1,0 +1,58 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "detail",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 20,
+            "right": 20,
+            "top": 40
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "详情页by hans",
+              "font_size": 24,
+              "font_weight": "bold"
+            },
+            {
+              "type": "text",
+              "text": "返回",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#EF4444"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 24
+              },
+              "actions": [
+                {
+                  "log_id": "back",
+                  "url": "sdui://back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

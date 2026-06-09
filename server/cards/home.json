@@ -1,0 +1,99 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "home",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 20,
+            "right": 20,
+            "top": 40,
+            "bottom": 20
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "DivKit 本地联调 by hans",
+              "font_size": 24,
+              "font_weight": "bold",
+              "text_color": "#111111"
+            },
+            {
+              "type": "text",
+              "text": "修改 home.json 后，下拉刷新即可看到更新。",
+              "font_size": 16,
+              "text_color": "#666666",
+              "margins": {
+                "top": 12
+              }
+            },
+            {
+              "type": "text",
+              "text": "Toast",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#1677FF"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 24
+              },
+              "actions": [
+                {
+                  "log_id": "toast",
+                  "url": "sdui://toast?text=Hello%20DivKit"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": "打开详情页",
+              "font_size": 18,
+              "text_color": "#FFFFFF",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#16A34A"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 10,
+                "bottom": 10
+              },
+              "margins": {
+                "top": 12
+              },
+              "actions": [
+                {
+                  "log_id": "open_detail",
+                  "url": "sdui://open?path=detail&title=详情"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
