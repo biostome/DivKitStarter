@@ -40,6 +40,16 @@ final class DivHostViewController: UIViewController {
         setupSubviews()
         loadDivKitData(showFullScreenLoading: true)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        SDUIEventLogger.log("page.appear", ["cardId": configuration.cardId.rawValue])
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        SDUIEventLogger.log("page.disappear", ["cardId": configuration.cardId.rawValue])
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -85,7 +95,8 @@ final class DivHostViewController: UIViewController {
         showToast("已复制")
     }
 
-    func share(text: String?, url: URL?) {
+    @discardableResult
+    func share(text: String?, url: URL?) -> Bool {
         var items: [Any] = []
         if let text {
             items.append(text)
@@ -94,9 +105,10 @@ final class DivHostViewController: UIViewController {
             items.append(url)
         }
         guard !items.isEmpty else {
-            return
+            return false
         }
         present(UIActivityViewController(activityItems: items, applicationActivities: nil), animated: true)
+        return true
     }
 
     func track(name: String) {
@@ -140,11 +152,13 @@ final class DivHostViewController: UIViewController {
             refreshControl.endRefreshing()
             return
         }
+        SDUIEventLogger.log("page.refresh", ["cardId": configuration.cardId.rawValue])
         loadDivKitData(showFullScreenLoading: false)
     }
     
     private func loadDivKitData(showFullScreenLoading: Bool) {
         loadTask?.cancel()
+        let startedAt = Date()
         if showFullScreenLoading {
             stateView.showLoading()
         }
@@ -155,26 +169,45 @@ final class DivHostViewController: UIViewController {
             }
             
             do {
-                let data = try await networkClient.fetchDivKitData(from: configuration.endpoint)
+                let networkResponse = try await networkClient.fetchDivKitData(from: configuration.endpoint)
                 try Task.checkCancellation()
-                let response = try SDUIPageResponse(data: data)
+                let response = try SDUIPageResponse(data: networkResponse.data)
                 try validatePageMetadata(response.metadata)
-                await applyPageResponse(response, rawData: data, source: .network)
+                await applyPageResponse(
+                    response,
+                    rawData: networkResponse.data,
+                    responseMetadata: networkResponse.metadata,
+                    source: .network
+                )
+                SDUIEventLogger.log("page.load.success", [
+                    "cardId": configuration.cardId.rawValue,
+                    "duration": String(format: "%.3f", Date().timeIntervalSince(startedAt)),
+                    "source": "network",
+                ])
             } catch is CancellationError {
                 return
             } catch {
+                SDUIEventLogger.log("page.load.failure", [
+                    "cardId": configuration.cardId.rawValue,
+                    "error": error.localizedDescription,
+                ])
                 await recoverFromLoadError(error)
             }
         }
     }
     
     @MainActor
-    private func applyPageResponse(_ response: SDUIPageResponse, rawData: Data, source: DataSource) async {
+    private func applyPageResponse(
+        _ response: SDUIPageResponse,
+        rawData: Data,
+        responseMetadata: SDUIResponseMetadata?,
+        source: DataSource
+    ) async {
         refreshControl.endRefreshing()
         stateView.hide()
         applyPageMetadata(response.metadata)
         if source == .network {
-            responseCache.store(rawData, for: configuration.cardId.rawValue)
+            responseCache.store(rawData, for: configuration.cardId.rawValue, responseMetadata: responseMetadata)
         }
         await divView.setSource(
             .init(kind: .data(response.divKitData), cardId: configuration.cardId),
@@ -188,11 +221,15 @@ final class DivHostViewController: UIViewController {
         if let cachedData = responseCache.data(for: configuration.cardId.rawValue) {
             do {
                 let response = try SDUIPageResponse(data: cachedData)
-                await applyPageResponse(response, rawData: cachedData, source: .cache)
+                await applyPageResponse(response, rawData: cachedData, responseMetadata: nil, source: .cache)
             } catch {
                 stateView.showError(error.localizedDescription)
                 return
             }
+            SDUIEventLogger.log("page.load.success", [
+                "cardId": configuration.cardId.rawValue,
+                "source": "cache",
+            ])
             showToast("网络异常，已展示缓存内容")
             return
         }

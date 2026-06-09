@@ -12,6 +12,31 @@ enum SDUIAction {
     case share(text: String?, url: URL?)
     case track(name: String)
     case back
+
+    var name: String {
+        switch self {
+        case .toast:
+            return "toast"
+        case .open:
+            return "open"
+        case .modal:
+            return "modal"
+        case .web:
+            return "web"
+        case .reload:
+            return "reload"
+        case .alert:
+            return "alert"
+        case .copy:
+            return "copy"
+        case .share:
+            return "share"
+        case .track:
+            return "track"
+        case .back:
+            return "back"
+        }
+    }
     
     init?(payload: DivDictionary) {
         guard let action = payload.stringValue(for: "action") else {

@@ -30,6 +30,14 @@ struct AppConfiguration {
     return URL(string: "http://localhost:3000/api/")!
   }
 
+  static var networkTimeout: TimeInterval {
+    15
+  }
+
+  static var cacheTTL: TimeInterval {
+    60 * 60
+  }
+
   static var isDivKitDebugEnabled: Bool {
     #if DEBUG
     true
