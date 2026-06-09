@@ -5,6 +5,7 @@ const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 const request = require("supertest");
 const createApp = require("../src/app");
+const cardRepository = require("../src/repositories/card.repository");
 
 const app = createApp();
 const cardsDirectory = path.join(__dirname, "..", "cards");
@@ -47,6 +48,13 @@ test("GET /api/invalid.path rejects invalid page name", async () => {
   const response = await request(app).get("/api/invalid.path").expect(400);
 
   assert.equal(response.body.error.code, "invalid_page_name");
+});
+
+test("card repository rejects path traversal names", async () => {
+  await assert.rejects(
+    () => cardRepository.readCardJson("../home"),
+    (error) => error.code === "invalid_page_name"
+  );
 });
 
 test("GET /api/invalid-action rejects unsupported custom payload action", async () => {
