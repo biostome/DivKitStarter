@@ -27,19 +27,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		435101E42C517C1F000EF4E6 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Resources/Sample.json; sourceTree = "<group>"; };
-		435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions/SampleDivCustomBlockFactory.swift; sourceTree = "<group>"; };
-		4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppConfiguration.swift; sourceTree = "<group>"; };
-		4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Network/DivKitNetworkClient.swift; sourceTree = "<group>"; };
-		4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/UI/LoadingStateView.swift; sourceTree = "<group>"; };
-		4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIActionHandler.swift; sourceTree = "<group>"; };
-		4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Cache/DivKitResponseCache.swift; sourceTree = "<group>"; };
-		4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/UI/ToastPresenter.swift; sourceTree = "<group>"; };
-		4374FB522C51CD8F00C66A5C /* SDUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIAction.swift; sourceTree = "<group>"; };
-		4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/SDUIReporter.swift; sourceTree = "<group>"; };
+		435101E42C517C1F000EF4E6 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Sample.json; sourceTree = "<group>"; };
+		435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleDivCustomBlockFactory.swift; sourceTree = "<group>"; };
+		4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivKitNetworkClient.swift; sourceTree = "<group>"; };
+		4374FB4A2C51CD8F00C66A5C /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
+		4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIActionHandler.swift; sourceTree = "<group>"; };
+		4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivKitResponseCache.swift; sourceTree = "<group>"; };
+		4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
+		4374FB522C51CD8F00C66A5C /* SDUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIAction.swift; sourceTree = "<group>"; };
+		4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIReporter.swift; sourceTree = "<group>"; };
 		8C705EF4258A3FDE00468EB6 /* DivKitStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivKitStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppDelegate.swift; sourceTree = "<group>"; };
-		8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUI/DivHostViewController.swift; sourceTree = "<group>"; };
+		8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivHostViewController.swift; sourceTree = "<group>"; };
 		8C705EFE258A3FDE00468EB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C705F00258A3FE000468EB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C705F03258A3FE000468EB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,6 +98,7 @@
 				4374FB462C51CD8F00C66A5C /* AppConfiguration.swift */,
 			);
 			name = App;
+			path = App;
 			sourceTree = "<group>";
 		};
 		4374FB572C51CD8F00C66A5C /* Core */ = {
@@ -108,6 +109,7 @@
 				4374FB5A2C51CD8F00C66A5C /* UI */,
 			);
 			name = Core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		4374FB582C51CD8F00C66A5C /* Cache */ = {
@@ -116,6 +118,7 @@
 				4374FB4E2C51CD8F00C66A5C /* DivKitResponseCache.swift */,
 			);
 			name = Cache;
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		4374FB592C51CD8F00C66A5C /* Network */ = {
@@ -124,6 +127,7 @@
 				4374FB482C51CD8F00C66A5C /* DivKitNetworkClient.swift */,
 			);
 			name = Network;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		4374FB5A2C51CD8F00C66A5C /* UI */ = {
@@ -133,6 +137,7 @@
 				4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */,
 			);
 			name = UI;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		4374FB5B2C51CD8F00C66A5C /* SDUI */ = {
@@ -144,6 +149,7 @@
 				4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */,
 			);
 			name = SDUI;
+			path = SDUI;
 			sourceTree = "<group>";
 		};
 		4374FB5C2C51CD8F00C66A5C /* Extensions */ = {
@@ -152,6 +158,7 @@
 				435101E62C517E9B000EF4E6 /* SampleDivCustomBlockFactory.swift */,
 			);
 			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4374FB5D2C51CD8F00C66A5C /* Resources */ = {
@@ -160,6 +167,7 @@
 				435101E42C517C1F000EF4E6 /* Sample.json */,
 			);
 			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
