@@ -29,7 +29,7 @@ UIKitIntegration/
     SDUIActionHandler.swift
     ToastPresenter.swift
 
-server/
+Server/
   cards/
     home.json
     detail.json
@@ -50,7 +50,7 @@ server/
 ## Run Local Server
 
 ```bash
-cd /Users/han/Desktop/DivKitStarter/server
+cd /Users/han/Desktop/DivKitStarter/Server
 npm install
 npm run dev
 ```
@@ -63,7 +63,7 @@ GET http://localhost:3000/api/
 GET http://localhost:3000/api/detail
 ```
 
-Edit files in `server/cards/`, then pull to refresh in the iOS app to reload JSON.
+Edit files in `Server/cards/`, then pull to refresh in the iOS app to reload JSON.
 
 ## Server Scripts
 
@@ -147,12 +147,12 @@ Page names only allow letters, numbers, hyphen, and underscore.
 
 ## Server Evolution Path
 
-The local server currently reads JSON cards from `server/cards`.
+The local server currently reads JSON cards from `Server/cards`.
 
 When building the real server, keep the existing route/controller/service shape and replace only the repository layer:
 
 ```text
-server/src/repositories/card.repository.js
+Server/src/repositories/card.repository.js
 ```
 
 Possible production data sources:
