@@ -1,4 +1,13 @@
 {
+  "page": {
+    "id": "detail",
+    "title": "详情",
+    "refreshable": true,
+    "minClientVersion": 1,
+    "requiredCapabilities": [
+      "back"
+    ]
+  },
   "templates": {},
   "card": {
     "log_id": "detail",

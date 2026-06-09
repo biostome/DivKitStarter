@@ -1,4 +1,19 @@
 {
+  "page": {
+    "id": "home",
+    "title": "首页",
+    "refreshable": true,
+    "minClientVersion": 1,
+    "requiredCapabilities": [
+      "toast",
+      "open",
+      "modal",
+      "alert",
+      "copy",
+      "track",
+      "back"
+    ]
+  },
   "templates": {},
   "card": {
     "log_id": "home",

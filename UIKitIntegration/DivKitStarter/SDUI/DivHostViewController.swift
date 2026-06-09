@@ -16,6 +16,7 @@ final class DivHostViewController: UIViewController {
     private let toastPresenter = ToastPresenter()
     
     private var loadTask: Task<Void, Never>?
+    private var isRefreshEnabled = true
     
     init(
         configuration: DivScreenConfiguration = .root,
@@ -85,7 +86,13 @@ final class DivHostViewController: UIViewController {
     }
 
     func share(text: String?, url: URL?) {
-        let items: [Any] = [text, url].compactMap { $0 }
+        var items: [Any] = []
+        if let text {
+            items.append(text)
+        }
+        if let url {
+            items.append(url)
+        }
         guard !items.isEmpty else {
             return
         }
@@ -129,6 +136,10 @@ final class DivHostViewController: UIViewController {
     }
     
     @objc private func refreshTriggered() {
+        guard isRefreshEnabled else {
+            refreshControl.endRefreshing()
+            return
+        }
         loadDivKitData(showFullScreenLoading: false)
     }
     
@@ -146,7 +157,9 @@ final class DivHostViewController: UIViewController {
             do {
                 let data = try await networkClient.fetchDivKitData(from: configuration.endpoint)
                 try Task.checkCancellation()
-                await applyDivKitData(data, source: .network)
+                let response = try SDUIPageResponse(data: data)
+                try validatePageMetadata(response.metadata)
+                await applyPageResponse(response, rawData: data, source: .network)
             } catch is CancellationError {
                 return
             } catch {
@@ -156,14 +169,15 @@ final class DivHostViewController: UIViewController {
     }
     
     @MainActor
-    private func applyDivKitData(_ data: Data, source: DataSource) async {
+    private func applyPageResponse(_ response: SDUIPageResponse, rawData: Data, source: DataSource) async {
         refreshControl.endRefreshing()
         stateView.hide()
+        applyPageMetadata(response.metadata)
         if source == .network {
-            responseCache.store(data, for: configuration.cardId.rawValue)
+            responseCache.store(rawData, for: configuration.cardId.rawValue)
         }
         await divView.setSource(
-            .init(kind: .data(data), cardId: configuration.cardId),
+            .init(kind: .data(response.divKitData), cardId: configuration.cardId),
             debugParams: DebugParams(isDebugInfoEnabled: AppConfiguration.isDivKitDebugEnabled)
         )
     }
@@ -172,11 +186,44 @@ final class DivHostViewController: UIViewController {
     private func recoverFromLoadError(_ error: Error) async {
         refreshControl.endRefreshing()
         if let cachedData = responseCache.data(for: configuration.cardId.rawValue) {
-            await applyDivKitData(cachedData, source: .cache)
+            do {
+                let response = try SDUIPageResponse(data: cachedData)
+                await applyPageResponse(response, rawData: cachedData, source: .cache)
+            } catch {
+                stateView.showError(error.localizedDescription)
+                return
+            }
             showToast("网络异常，已展示缓存内容")
             return
         }
         stateView.showError(error.localizedDescription)
+    }
+
+    private func validatePageMetadata(_ metadata: SDUIPageMetadata?) throws {
+        guard let metadata else {
+            return
+        }
+        if metadata.minClientVersion > AppConfiguration.clientVersion {
+            throw SDUIPageError.unsupportedClientVersion
+        }
+        let unsupported = metadata.requiredCapabilities.filter {
+            !AppConfiguration.supportedCapabilities.contains($0)
+        }
+        if !unsupported.isEmpty {
+            throw SDUIPageError.unsupportedCapabilities(unsupported)
+        }
+    }
+
+    @MainActor
+    private func applyPageMetadata(_ metadata: SDUIPageMetadata?) {
+        guard let metadata else {
+            return
+        }
+        if let title = metadata.title {
+            self.title = title
+        }
+        isRefreshEnabled = metadata.refreshable
+        refreshControl.isEnabled = metadata.refreshable
     }
     
     private func makeDivKitComponents() -> DivKitComponents {
@@ -209,6 +256,20 @@ final class DivHostViewController: UIViewController {
 private enum DataSource {
     case network
     case cache
+}
+
+private enum SDUIPageError: LocalizedError {
+    case unsupportedClientVersion
+    case unsupportedCapabilities([String])
+
+    var errorDescription: String? {
+        switch self {
+        case .unsupportedClientVersion:
+            return "当前客户端版本过低"
+        case let .unsupportedCapabilities(capabilities):
+            return "当前客户端不支持能力: \(capabilities.joined(separator: ", "))"
+        }
+    }
 }
 
 private final class WebViewController: UIViewController {

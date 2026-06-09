@@ -17,6 +17,7 @@
 		4374FB512C51CD8F00C66A5C /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */; };
 		4374FB532C51CD8F00C66A5C /* SDUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374FB522C51CD8F00C66A5C /* SDUIAction.swift */; };
 		4374FB552C51CD8F00C66A5C /* SDUIReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */; };
+		4374FB5F2C51CD8F00C66A5C /* SDUIPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374FB5E2C51CD8F00C66A5C /* SDUIPageResponse.swift */; };
 		43E33AE32A83DD7F00CEFAD5 /* DivKit in Frameworks */ = {isa = PBXBuildFile; productRef = 43E33AE22A83DD7F00CEFAD5 /* DivKit */; };
 		43E33AE52A83DD7F00CEFAD5 /* DivKitExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 43E33AE42A83DD7F00CEFAD5 /* DivKitExtensions */; };
 		8C705EF8258A3FDE00468EB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		4374FB502C51CD8F00C66A5C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
 		4374FB522C51CD8F00C66A5C /* SDUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIAction.swift; sourceTree = "<group>"; };
 		4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIReporter.swift; sourceTree = "<group>"; };
+		4374FB5E2C51CD8F00C66A5C /* SDUIPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDUIPageResponse.swift; sourceTree = "<group>"; };
 		8C705EF4258A3FDE00468EB6 /* DivKitStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivKitStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C705EF7258A3FDE00468EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C705EFB258A3FDE00468EB6 /* DivHostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivHostViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				4374FB522C51CD8F00C66A5C /* SDUIAction.swift */,
 				4374FB4C2C51CD8F00C66A5C /* SDUIActionHandler.swift */,
 				4374FB542C51CD8F00C66A5C /* SDUIReporter.swift */,
+				4374FB5E2C51CD8F00C66A5C /* SDUIPageResponse.swift */,
 			);
 			name = SDUI;
 			path = SDUI;
@@ -257,6 +260,7 @@
 				4374FB532C51CD8F00C66A5C /* SDUIAction.swift in Sources */,
 				4374FB4D2C51CD8F00C66A5C /* SDUIActionHandler.swift in Sources */,
 				4374FB552C51CD8F00C66A5C /* SDUIReporter.swift in Sources */,
+				4374FB5F2C51CD8F00C66A5C /* SDUIPageResponse.swift in Sources */,
 				4374FB512C51CD8F00C66A5C /* ToastPresenter.swift in Sources */,
 				8C705EF8258A3FDE00468EB6 /* AppDelegate.swift in Sources */,
 			);

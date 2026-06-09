@@ -2,6 +2,20 @@ import DivKit
 import Foundation
 
 struct AppConfiguration {
+  static let clientVersion = 1
+  static let supportedCapabilities: Set<String> = [
+    "toast",
+    "open",
+    "modal",
+    "web",
+    "reload",
+    "alert",
+    "copy",
+    "share",
+    "track",
+    "back",
+  ]
+
   static var environmentName: String {
     (Bundle.main.object(forInfoDictionaryKey: "API_ENV") as? String) ?? "local"
   }

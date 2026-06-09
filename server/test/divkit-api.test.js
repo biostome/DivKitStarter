@@ -20,6 +20,8 @@ test("GET /api/ returns home DivKit card", async () => {
   const response = await request(app).get("/api/").expect(200);
 
   assert.equal(response.body.card.log_id, "home");
+  assert.equal(response.body.page.id, "home");
+  assert.equal(response.body.page.refreshable, true);
   assert.ok(Array.isArray(response.body.card.states));
   assert.ok(response.body.card.states[0].div);
 });
@@ -28,6 +30,7 @@ test("GET /api/detail returns detail DivKit card", async () => {
   const response = await request(app).get("/api/detail").expect(200);
 
   assert.equal(response.body.card.log_id, "detail");
+  assert.equal(response.body.page.id, "detail");
 });
 
 test("GET /api/missing returns structured 404", async () => {

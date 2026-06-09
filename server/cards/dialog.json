@@ -1,4 +1,13 @@
 {
+  "page": {
+    "id": "dialog",
+    "title": "弹窗",
+    "refreshable": false,
+    "minClientVersion": 1,
+    "requiredCapabilities": [
+      "back"
+    ]
+  },
   "templates": {},
   "card": {
     "log_id": "dialog",
