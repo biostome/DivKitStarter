@@ -26,10 +26,10 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v5
-      - name: Build iOS app
+      - name: Test iOS app
         run: |
           xcodebuild \
             -project UIKitIntegration/DivKitStarter.xcodeproj \
             -scheme DivKitStarter \
-            -destination 'generic/platform=iOS Simulator' \
-            build
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            test

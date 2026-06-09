@@ -1,0 +1,45 @@
+name: CodeQL
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "24 3 * * 1"
+
+jobs:
+  analyze-javascript:
+    name: Analyze JavaScript
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+      - uses: github/codeql-action/analyze@v4
+
+  analyze-swift:
+    name: Analyze Swift
+    runs-on: macos-15
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: swift
+      - name: Build iOS app
+        run: |
+          xcodebuild \
+            -project UIKitIntegration/DivKitStarter.xcodeproj \
+            -scheme DivKitStarter \
+            -destination 'generic/platform=iOS Simulator' \
+            build
+      - uses: github/codeql-action/analyze@v4
